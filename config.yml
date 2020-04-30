@@ -45,7 +45,7 @@ interventions:
   scenarios:
     # - None
     # - UK
-    - Influenza1918
+    - Scenario1
   settings:
     None:
       template: ReduceR0
@@ -68,6 +68,9 @@ interventions:
       value:
         distribution: fixed
         value: .50
+    Scenario1:
+      template: Stacked
+      scenarios: ["UK", "Influenza1918"]
 
 filtering:
   simulations_per_slot: 100
@@ -77,24 +80,25 @@ filtering:
     sum_deaths:
       name: sum_deaths
       aggregator: sum
-      period: "1 months"
+      period: "1 days"
       sim_var: incidD
       data_var: death_incid
       remove_na: TRUE
       add_one: TRUE
       likelihood:
-        dist: pois
-        param: [.1]
+        dist: sqrtnorm
+        param: [.7]
     sum_hosp:
       name: sum_hosp
       aggregator: sum
-      period: "1 months"
+      period: "1 days"
       sim_var: incidH
       data_var: conf_incid
       remove_na: TRUE
       add_one: TRUE
       likelihood:
-        dist: pois
+        dist: sqrtnorm_scale_sim
+        param: [.7,5]
 
 hospitalization:
   paths:
