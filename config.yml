@@ -66,11 +66,16 @@ interventions:
       period_start_date: 2020-03-25
       period_end_date: 2020-04-30
       value:
-        distribution: fixed
-        value: .50
+        distribution: uniform
+        low: .40
+        high: .60
+      perturbation:
+        distribution: uniform
+        low: -.1
+        high: .1
     Scenario1:
       template: Stacked
-      scenarios: ["UK", "Influenza1918"]
+      scenarios: ["UK","Influenza1918"]
 
 filtering:
   simulations_per_slot: 100
@@ -80,25 +85,24 @@ filtering:
     sum_deaths:
       name: sum_deaths
       aggregator: sum
-      period: "1 days"
+      period: "1 months"
       sim_var: incidD
       data_var: death_incid
       remove_na: TRUE
       add_one: TRUE
       likelihood:
-        dist: sqrtnorm
-        param: [.7]
+        dist: pois
+        param: [.1]
     sum_hosp:
       name: sum_hosp
       aggregator: sum
-      period: "1 days"
+      period: "1 months"
       sim_var: incidH
       data_var: conf_incid
       remove_na: TRUE
       add_one: TRUE
       likelihood:
-        dist: sqrtnorm_scale_sim
-        param: [.7,5]
+        dist: pois
 
 hospitalization:
   paths:
