@@ -16,7 +16,7 @@ spatial_setup:
   census_year: 2010
   base_path: data
   modeled_states: # To model a region that is not a state, remove modeled_states and the importation: block
-   - HI # e.g., MD  You can provide as many of these as you like, but more counties means slower runs
+   - NY # e.g., MD  You can provide as many of these as you like, but more counties means slower runs
   setup_name: minimal
   geodata: geodata.csv
   mobility: mobility.csv
@@ -29,7 +29,7 @@ seeding: ## If removing the importation, comment out this seeding block
   # method: PoissonDistributed
   folder_path: importation/minimal/
   lambda_file: data/minimal/seeding.csv
-  perturbation_sd: 3
+  perturbation_sd: 1
 
 seir:
   parameters:
@@ -43,66 +43,57 @@ seir:
 
 interventions:
   scenarios:
-    # - None
-    # - UK
     - Scenario1
+    # - Scenario2
   settings:
-    None:
+    local_variation:
       template: ReduceR0
-      period_start_date: 2020-04-01
-      period_end_date: 2020-05-15
       value:
-        distribution: fixed
-        value: 0
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: 0.1
+        a: -.1
+        b: .1
     UK:
       template: ReduceR0
       period_start_date: 2020-03-25
-      period_end_date: 2020-04-30
       value:
-        distribution: fixed
-        value: .86
+        distribution: truncnorm
+        mean: 0.6
+        sd: .1
+        a: 0
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: 0.1
+        a: -.1
+        b: .1
     Influenza1918:
       template: ReduceR0
       period_start_date: 2020-03-25
-      period_end_date: 2020-04-30
       value:
         distribution: uniform
         low: .40
         high: .60
       perturbation:
-        distribution: uniform
-        low: -.1
-        high: .1
+        distribution: truncnorm
+        mean: 0
+        sd: 0.1
+        a: -.1
+        b: .1
     Scenario1:
       template: Stacked
-      scenarios: ["UK","Influenza1918"]
-
-filtering:
-  simulations_per_slot: 100
-  do_filtering: TRUE
-  data_path: data/us_data.csv
-  statistics:
-    sum_deaths:
-      name: sum_deaths
-      aggregator: sum
-      period: "1 months"
-      sim_var: incidD
-      data_var: death_incid
-      remove_na: TRUE
-      add_one: TRUE
-      likelihood:
-        dist: pois
-        param: [.1]
-    sum_hosp:
-      name: sum_hosp
-      aggregator: sum
-      period: "1 months"
-      sim_var: incidH
-      data_var: conf_incid
-      remove_na: TRUE
-      add_one: TRUE
-      likelihood:
-        dist: pois
+      scenarios: ["local_variation","UK"]
+    Scenario2:
+      template: Stacked
+      scenarios: ["local_variation","Influenza1918"]
 
 hospitalization:
   paths:
@@ -110,15 +101,45 @@ hospitalization:
     run_age_adjust: TRUE
   parameters:
     time_hosp: [log(7), 0.3]
-    time_disch: [log(11.5), log(1.22)]
+    time_disch: [log(7), log(1.22)]
     time_ICU: [log(3), 0.3]
     time_ICUdur: [log(8), 0.2]
     time_ventdur: [log(7), 0.2]
     time_vent: [log(1), 0.4]
-    p_death: [.005]
-    p_death_names: ["med"]
-    p_hosp_inf: [0.05]
+    p_death: [.01]
+    p_death_names: ["high"]
+    p_hosp_inf: [0.1]
     time_onset_death: [2.1, 0.72]
+
+filtering:
+  simulations_per_slot: 100
+  do_filtering: TRUE
+  data_path: data/us_data.csv
+  likelihood_directory: importation/likelihood/
+  statistics:
+    sum_deaths:
+      name: sum_deaths
+      aggregator: sum
+      period: "1 days"
+      sim_var: incidD
+      data_var: death_incid
+      remove_na: TRUE
+      add_one: TRUE
+      likelihood:
+        dist: sqrtnorm
+        param: [.2]
+    sum_hosp:
+      name: sum_hosp
+      aggregator: sum
+      period: "1 days"
+      sim_var: incidH
+      data_var: conf_incid
+      remove_na: TRUE
+      add_one: TRUE
+      likelihood:
+        dist: sqrtnorm_scale_sim
+        param: [.8, 5]
+
 
 ## Report generation is still in it's infancy.
 ## The parameters in this block are only used in our draft state_report rmarkdown template 
