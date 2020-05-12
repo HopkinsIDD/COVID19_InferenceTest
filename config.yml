@@ -6,8 +6,8 @@
 ## Some items in the config can be removed, and we have tried to note these with comments as well.
 
 name: minimal
-start_date: 2020-01-31
-end_date: 2020-12-31
+start_date: 2020-01-01
+end_date: 2020-05-09
 nsimulations: 100
 dt: 0.25
 ## dynfilter_path: data/filter.txt ## this method of filtering is not currently working
@@ -29,10 +29,11 @@ seeding: ## If removing the importation, comment out this seeding block
   # method: PoissonDistributed
   folder_path: importation/minimal/
   lambda_file: data/minimal/seeding.csv
-  perturbation_sd: 1
+  perturbation_sd: 3
 
 seir:
   parameters:
+    alpha: .99
     sigma: 1 / 5.2
     gamma:
       distribution: fixed
@@ -58,8 +59,8 @@ interventions:
         distribution: truncnorm
         mean: 0
         sd: 0.1
-        a: -.1
-        b: .1
+        a: -1
+        b: 1
     UK:
       template: ReduceR0
       period_start_date: 2020-03-25
@@ -73,8 +74,8 @@ interventions:
         distribution: truncnorm
         mean: 0
         sd: 0.1
-        a: -.1
-        b: .1
+        a: -1
+        b: 1
     Influenza1918:
       template: ReduceR0
       period_start_date: 2020-03-25
@@ -86,8 +87,8 @@ interventions:
         distribution: truncnorm
         mean: 0
         sd: 0.1
-        a: -.1
-        b: .1
+        a: -1
+        b: 1
     Scenario1:
       template: Stacked
       scenarios: ["local_variation","UK"]
@@ -106,10 +107,10 @@ hospitalization:
     time_ICUdur: [log(8), 0.2]
     time_ventdur: [log(7), 0.2]
     time_vent: [log(1), 0.4]
-    p_death: [.01]
-    p_death_names: ["high"]
-    p_hosp_inf: [0.1]
-    time_onset_death: [2.1, 0.72]
+    p_death: [.005]
+    p_death_names: ["med"]
+    p_hosp_inf: [0.05]
+    time_onset_death: [2.84, 0.72]
 
 filtering:
   simulations_per_slot: 100
@@ -124,10 +125,10 @@ filtering:
       sim_var: incidD
       data_var: death_incid
       remove_na: TRUE
-      add_one: TRUE
+      add_one: FALSE
       likelihood:
         dist: sqrtnorm
-        param: [.2]
+        param: [.4]
     sum_hosp:
       name: sum_hosp
       aggregator: sum
@@ -135,10 +136,10 @@ filtering:
       sim_var: incidH
       data_var: conf_incid
       remove_na: TRUE
-      add_one: TRUE
+      add_one: FALSE
       likelihood:
-        dist: sqrtnorm_scale_sim
-        param: [.8, 5]
+        dist: sqrtnorm
+        param: [.8]
 
 
 ## Report generation is still in it's infancy.
