@@ -36,11 +36,13 @@ seir:
     alpha: .99
     sigma: 1 / 5.2
     gamma:
-      distribution: fixed
-      value: 1 / 4
+      distribution: uniform
+      low: 1 / 6
+      high: 1/2.6
     R0s:
-      distribution: fixed
-      value: 2.5
+      distribution: uniform
+      low: 2
+      high: 3.5
 
 interventions:
   scenarios:
@@ -110,7 +112,7 @@ hospitalization:
     p_death: [.005]
     p_death_names: ["med"]
     p_hosp_inf: [0.05]
-    time_onset_death: [2.84, 0.72]
+    time_onset_death: [2.63, 0.72]
 
 filtering:
   simulations_per_slot: 100
@@ -121,25 +123,25 @@ filtering:
     sum_deaths:
       name: sum_deaths
       aggregator: sum
-      period: "1 days"
+      period: "1 weeks"
       sim_var: incidD
       data_var: death_incid
       remove_na: TRUE
       add_one: FALSE
       likelihood:
         dist: sqrtnorm
-        param: [.4]
+        param: [.1]
     sum_hosp:
       name: sum_hosp
       aggregator: sum
       period: "1 days"
       sim_var: incidH
-      data_var: conf_incid
+      data_var : conf_incid
       remove_na: TRUE
       add_one: FALSE
       likelihood:
         dist: sqrtnorm
-        param: [.8]
+        param: [.5]
 
 
 ## Report generation is still in it's infancy.
