@@ -1,0 +1,7 @@
+{
+    "cmd": "./COVIDScenarioPipeline/batch/inference_job.py -c config.yml -n 300 -j 10 -k 25 -t importation.dvc -p",
+    "job_name": "minimal-20200514T153640-Scenario1-med",
+    "job_queue": "Inference-JQ-1588570229",
+    "data_sha": "8b2081454d2adb5ed3a4f3c4144b33f3e1bb6936",
+    "csp_sha": "796d3dc1b2823b96b14153d2f05fed52baee88a3"
+}

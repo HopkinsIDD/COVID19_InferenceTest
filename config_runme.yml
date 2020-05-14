@@ -1,0 +1,172 @@
+name: minimal
+start_date: 2020-01-01
+end_date: 2020-05-09
+nsimulations: 100
+dt: 0.25
+spatial_setup:
+  census_year: 2010
+  base_path: data
+  modeled_states:
+  - NY
+  setup_name: minimal
+  geodata: geodata.csv
+  mobility: mobility.csv
+  popnodes: pop2010
+  nodenames: geoid
+  include_in_report: include_in_report
+seeding:
+  method: FolderDraw
+  folder_path: importation/minimal/
+  lambda_file: data/minimal/seeding.csv
+  perturbation_sd: 3
+seir:
+  parameters:
+    alpha: 0.99
+    sigma: 1 / 5.2
+    gamma:
+      distribution: uniform
+      low: 1 / 6
+      high: 1/2.6
+    R0s:
+      distribution: uniform
+      low: 2
+      high: 3.5
+interventions:
+  scenarios:
+  - Scenario1
+  settings:
+    local_variation:
+      template: ReduceR0
+      value:
+        distribution: truncnorm
+        mean: 0
+        sd: 0.1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: 0.1
+        a: -1
+        b: 1
+    UK:
+      template: ReduceR0
+      period_start_date: 2020-03-25
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.1
+        a: 0
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: 0.1
+        a: -1
+        b: 1
+    Influenza1918:
+      template: ReduceR0
+      period_start_date: 2020-03-25
+      value:
+        distribution: uniform
+        low: 0.4
+        high: 0.6
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: 0.1
+        a: -1
+        b: 1
+    Scenario1:
+      template: Stacked
+      scenarios:
+      - local_variation
+      - UK
+    Scenario2:
+      template: Stacked
+      scenarios:
+      - local_variation
+      - Influenza1918
+hospitalization:
+  paths:
+    output_path: hospitalization
+    run_age_adjust: true
+  parameters:
+    time_hosp:
+    - log(7)
+    - 0.3
+    time_disch:
+    - log(7)
+    - log(1.22)
+    time_ICU:
+    - log(3)
+    - 0.3
+    time_ICUdur:
+    - log(8)
+    - 0.2
+    time_ventdur:
+    - log(7)
+    - 0.2
+    time_vent:
+    - log(1)
+    - 0.4
+    p_death:
+    - 0.005
+    p_death_names:
+    - med
+    p_hosp_inf:
+    - 0.05
+    time_onset_death:
+    - 2.63
+    - 0.72
+filtering:
+  simulations_per_slot: 10
+  do_filtering: true
+  data_path: data/us_data.csv
+  likelihood_directory: importation/likelihood/
+  statistics:
+    sum_deaths:
+      name: sum_deaths
+      aggregator: sum
+      period: 1 weeks
+      sim_var: incidD
+      data_var: death_incid
+      remove_na: true
+      add_one: false
+      likelihood:
+        dist: sqrtnorm
+        param:
+        - 0.1
+    sum_hosp:
+      name: sum_hosp
+      aggregator: sum
+      period: 1 days
+      sim_var: incidH
+      data_var: conf_incid
+      remove_na: true
+      add_one: false
+      likelihood:
+        dist: sqrtnorm
+        param:
+        - 0.5
+report:
+  data_settings:
+    pop_year: 2010
+  plot_settings:
+    plot_intervention: true
+  formatting:
+    scenario_labels_short: []
+    scenario_labels:
+    - Worst Case Uncontrolled Spread
+    - Another Scenario
+    scenario_colors:
+    - '#D95F02'
+    - '#1B9E77'
+    pdeath_labels:
+    - 0.25% IFR
+    - 0.5% IFR
+    - 1% IFR
+    display_dates:
+    - '2020-05-01'
+    - '2020-07-01'
+    - '2020-09-01'
