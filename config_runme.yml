@@ -120,7 +120,7 @@ hospitalization:
     - 2.63
     - 0.72
 filtering:
-  simulations_per_slot: 10
+  simulations_per_slot: 25
   do_filtering: true
   data_path: data/us_data.csv
   likelihood_directory: importation/likelihood/
