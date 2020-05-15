@@ -1,0 +1,23 @@
+md5: 8760a9614da3d0e77810ca15fb29996b
+cmd: Rscript COVIDScenarioPipeline/R/scripts/full_filter.R -p COVIDScenarioPipeline -n 1 -k 10 -j 1
+outs:
+- md5: bc811b7ab2515c94dcb9e3c2f58fd725.dir
+  path: importation
+  cache: true
+  metric: false
+  persist: false
+- md5: aed5671844800aac3ec88df1be93b3fa.dir
+  path: model_output
+  cache: true
+  metric: false
+  persist: false
+- md5: 987fd399ed975d284836fc1e7818391f.dir
+  path: hospitalization
+  cache: true
+  metric: false
+  persist: false
+- md5: 713d287371a0b75c32de83dc958b863b.dir
+  path: model_parameters
+  cache: true
+  metric: false
+  persist: false
