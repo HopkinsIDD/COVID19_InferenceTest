@@ -16,7 +16,7 @@ spatial_setup:
   census_year: 2010
   base_path: data
   modeled_states: # To model a region that is not a state, remove modeled_states and the importation: block
-   - NY # e.g., MD  You can provide as many of these as you like, but more counties means slower runs
+   - NY		   # e.g., MD  You can provide as many of these as you like, but more counties means slower runs
   setup_name: minimal
   geodata: geodata.csv
   mobility: mobility.csv
