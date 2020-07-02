@@ -167,7 +167,7 @@ outcomes:
           perturbation:
             distribution: truncnorm
             mean: 0
-            sd: .1
+            sd: .025
             a: -1
             b: 1
         delay:
