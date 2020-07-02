@@ -17,7 +17,7 @@ spatial_setup:
   include_in_report: include_in_report
 
 seeding:
-  method: PoissonDraw
+  method: PoissonDistributed
   lambda_file: data/minimal/seeding.csv
   folder_path: importation/minimal/
   seeding_file_type: seed
