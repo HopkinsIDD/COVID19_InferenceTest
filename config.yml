@@ -176,7 +176,7 @@ outcomes:
             value: 7
 
 filtering:
-  simulations_per_slot: 1000
+  simulations_per_slot: 250
   do_filtering: TRUE
   data_path: data/groundtruth_data.csv
   likelihood_directory: importation/likelihood/
