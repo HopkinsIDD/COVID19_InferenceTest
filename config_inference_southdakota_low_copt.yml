@@ -1,0 +1,229 @@
+name: USA
+start_date: 2020-01-01
+end_date: 2020-12-19
+nsimulations: 300
+dt: 0.25
+
+spatial_setup:
+  census_year: 2019
+  base_path: data
+  modeled_states: 
+   - SD
+  setup_name: usa_inference_territories
+  geodata: geodata_sd_2019.csv
+  mobility: mobility_sd_2011-2015.csv
+  popnodes: pop2019est
+  nodenames: geoid
+  include_in_report: include_in_report
+
+seeding:
+  method: FolderDraw
+  seeding_file_type: seed
+  folder_path: importation/minimal/
+  lambda_file: data/minimal/seeding_sd.csv
+  perturbation_sd: 3
+
+seir:
+  parameters:
+    alpha: 0.99
+    sigma: 1 / 5.2
+    gamma:
+      distribution: uniform
+      low: 1 / 6
+      high: 1 / 2.6
+    R0s:
+      distribution: uniform
+      low: 2
+      high: 3
+
+interventions:
+  scenarios:
+    - inference
+  settings:
+    local_variance:
+      template: ReduceR0
+      value:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    SOUTHDAKOTA_sd_partial:
+      template: ReduceR0
+      affected_geoids: ["46075", "46063", "46119", "46069", "46021", "46017", "46055", "46095", "46073", "46107", "46111", "46049", "46097", "46089", "46003", "46137", "46117", "46105", "46043", "46071", "46061", "46007", "46059", "46025", "46085", "46031", "46045", "46053", "46039", "46091", "46077", "46015", "46041", "46129", "46087", "46123", "46037", "46057", "46115", "46101", "46009", "46047", "46067", "46051", "46033", "46125", "46023", "46121", "46019", "46109", "46079", "46113", "46027", "46127", "46065", "46005", "46035", "46135", "46081", "46093", "46029", "46011", "46013", "46083", "46103", "46099"]
+      period_start_date: 2020-03-16
+      period_end_date: 2020-04-27
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.3
+        a: 0
+        b: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .05
+        a: -1
+        b: 1
+    SOUTHDAKOTA_open_p4_partial:
+      template: ReduceR0
+      affected_geoids: ["46075", "46063", "46119", "46069", "46021", "46017", "46055", "46095", "46073", "46107", "46111", "46049", "46097", "46089", "46003", "46137", "46117", "46105", "46043", "46071", "46061", "46007", "46059", "46025", "46085", "46031", "46045", "46053", "46039", "46091", "46077", "46015", "46041", "46129", "46087", "46123", "46037", "46057", "46115", "46101", "46009", "46047", "46067", "46051", "46033", "46125", "46023", "46121", "46019", "46109", "46079", "46113", "46027", "46127", "46065", "46005", "46035", "46135", "46081", "46093", "46029", "46011", "46013", "46083", "46103", "46099"]
+      period_start_date: 2020-04-28
+      period_end_date: 2020-12-19
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.3
+        a: 0
+        b: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .05
+        a: -1
+        b: 1  
+    state_scenarios:
+      template: Stacked
+      scenarios: ["SOUTHDAKOTA_sd_partial", "SOUTHDAKOTA_open_p4_partial"]
+    inference:
+      template: Stacked
+      scenarios: ["local_variance", "state_scenarios"]
+    
+outcomes:
+  method: delayframe
+  param_from_file: TRUE
+  param_place_file: "usa-geoid-params-output.parquet"
+  scenarios:
+    - low
+  settings:
+    low:
+      incidH:
+        source: incidI
+        probability:
+          value:
+            distribution: fixed
+            value: .0175
+        delay:
+          value:
+            distribution: fixed
+            value: 7
+        duration:
+          value:
+            distribution: fixed
+            value: 7
+          name: hosp_curr
+      incidD:
+        source: incidI
+        probability:
+          value:
+            distribution: fixed
+            value: .0025
+        delay:
+          value:
+            distribution: fixed
+            value: 20
+      incidICU:
+        source: incidH
+        probability: 
+          value:
+            distribution: fixed
+            value: 0.167
+        delay:
+          value:
+            distribution: fixed
+            value: 3
+        duration:
+          value:
+            distribution: fixed
+            value: 8
+          name: icu_curr
+      incidVent:
+        source: incidICU
+        probability: 
+          value:
+            distribution: fixed
+            value: 0.463
+        delay:
+          value:
+            distribution: fixed
+            value: 1
+        duration:
+          value:
+            distribution: fixed
+            value: 7
+          name: vent_curr
+      incidC:
+        source: incidI
+        probability:
+          value:
+            distribution: truncnorm
+            mean: .1
+            sd: .1
+            a: 0
+            b: 1
+          perturbation:
+            distribution: truncnorm
+            mean: 0
+            sd: .05
+            a: -1
+            b: 1
+        delay:
+          value:
+            distribution: fixed
+            value: 7
+
+filtering:
+  simulations_per_slot: 250
+  do_filtering: TRUE
+  data_path: data/sd_data.csv
+  likelihood_directory: importation/likelihood/
+  statistics:
+    sum_deaths:
+      name: sum_deaths
+      aggregator: sum
+      period: "1 weeks"
+      sim_var: incidD
+      data_var: death_incid
+      remove_na: FALSE
+      add_one: FALSE
+      likelihood:
+        dist: sqrtnorm
+        param: [.4]
+    sum_confirmed:
+      name: sum_confirmed
+      aggregator: sum
+      period: "1 weeks"
+      sim_var: incidC
+      data_var: confirmed_incid
+      remove_na: FALSE
+      add_one: FALSE
+      likelihood:
+        dist: sqrtnorm
+        param: [.1]
+  hierarchical_stats_geo:
+    local_var_hierarchy:
+      name: local_variance
+      module: seir
+      geo_group_col: USPS
+      transform: none
+    local_conf:
+      name: probability_incidI_incidC
+      module: hospitalization
+      geo_group_col: USPS
+      transform: logit
+  priors:
+    local_var_prior:
+      name: local_variance
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0
+        - 1
+  
