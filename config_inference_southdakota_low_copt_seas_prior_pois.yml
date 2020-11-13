@@ -217,7 +217,7 @@ interventions:
     seas_dec:
       template: ReduceR0
       period_start_date: 2020-12-01
-      period_end_date: 2020-11-31
+      period_end_date: 2020-12-19
       value:
         distribution: truncnorm
         mean: -0.133
