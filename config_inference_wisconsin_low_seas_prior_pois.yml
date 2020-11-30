@@ -1,0 +1,531 @@
+name: USA
+start_date: 2020-01-01
+end_date: 2020-12-31
+nsimulations: 300
+dt: 0.25
+
+spatial_setup:
+  census_year: 2019
+  base_path: data
+  modeled_states: 
+   - WI
+  setup_name: usa_inference_territories
+  geodata: geodata_wi_2019.csv
+  mobility: mobility_wi_2011-2015.csv
+  popnodes: pop2019est
+  nodenames: geoid
+  include_in_report: include_in_report
+
+seeding:
+  method: FolderDraw
+  seeding_file_type: seed
+  folder_path: importation/minimal/
+  lambda_file: data/minimal/seeding_wi.csv
+  perturbation_sd: 3
+
+seir:
+  parameters:
+    alpha: 0.99
+    sigma: 1 / 5.2
+    gamma:
+      distribution: uniform
+      low: 1 / 6
+      high: 1 / 2.6
+    R0s:
+      distribution: uniform
+      low: 2
+      high: 3
+
+interventions:
+  scenarios:
+    - inference
+  settings:
+    local_variance:
+      template: ReduceR0
+      value:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_jan:
+      template: ReduceR0
+      period_start_date: 2020-01-01
+      period_end_date: 2020-01-31
+      value:
+        distribution: truncnorm
+        mean: -0.2
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_feb:
+      template: ReduceR0
+      period_start_date: 2020-02-01
+      period_end_date: 2020-02-29
+      value:
+        distribution: truncnorm
+        mean: -0.133
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_mar:
+      template: ReduceR0
+      period_start_date: 2020-03-01
+      period_end_date: 2020-03-31
+      value:
+        distribution: truncnorm
+        mean: -0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_may:
+      template: ReduceR0
+      period_start_date: 2020-05-01
+      period_end_date: 2020-05-31
+      value:
+        distribution: truncnorm
+        mean: 0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_jun:
+      template: ReduceR0
+      period_start_date: 2020-06-01
+      period_end_date: 2020-06-30
+      value:
+        distribution: truncnorm
+        mean: 0.133
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_jul:
+      template: ReduceR0
+      period_start_date: 2020-07-01
+      period_end_date: 2020-07-31
+      value:
+        distribution: truncnorm
+        mean: 0.2
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_aug:
+      template: ReduceR0
+      period_start_date: 2020-08-01
+      period_end_date: 2020-08-31
+      value:
+        distribution: truncnorm
+        mean: 0.133
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_sep:
+      template: ReduceR0
+      period_start_date: 2020-09-01
+      period_end_date: 2020-09-30
+      value:
+        distribution: truncnorm
+        mean: 0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_oct:
+      template: ReduceR0
+      period_start_date: 2020-10-01
+      period_end_date: 2020-10-31
+      value:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_nov:
+      template: ReduceR0
+      period_start_date: 2020-11-01
+      period_end_date: 2020-11-30
+      value:
+        distribution: truncnorm
+        mean: -0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_dec:
+      template: ReduceR0
+      period_start_date: 2020-12-01
+      period_end_date: 2020-12-31
+      value:
+        distribution: truncnorm
+        mean: -0.133
+        sd: .1
+        a: -1
+        b: 1
+    WISCONSIN_lockdown_partial:
+      template: ReduceR0
+      affected_geoids: ["55078", "55037", "55051", "55091", "55041", "55011", "55099", "55107", "55007", "55077", "55013", "55129", "55003", "55113", "55023", "55065", "55103", "55047", "55067", "55053", "55061", "55119", "55001", "55125", "55049", "55137", "55057", "55029", "55069", "55121", "55123", "55019", "55085", "55045", "55083", "55093", "55075", "55115", "55033", "55031", "55095", "55081", "55005", "55015", "55043", "55135", "55021", "55111", "55017", "55097", "55141", "55071", "55055", "55109", "55089", "55027", "55035", "55039", "55127", "55063", "55117", "55131", "55073", "55105", "55059", "55139", "55087", "55101", "55009", "55133", "55025", "55079"]
+      period_start_date: 2020-03-25
+      period_end_date: 2020-05-13
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.3
+        a: 0
+        b: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .05
+        a: -1
+        b: 1
+    WISCONSIN_open_p1_partial:
+      template: ReduceR0
+      affected_geoids: ["55078", "55037", "55051", "55091", "55041", "55011", "55099", "55107", "55007", "55077", "55013", "55129", "55003", "55113", "55023", "55065", "55103", "55047", "55067", "55053", "55061", "55119", "55001", "55125", "55049", "55137", "55057", "55029", "55069", "55121", "55123", "55019", "55085", "55045", "55083", "55093", "55075", "55115", "55033", "55031", "55095", "55081", "55005", "55015", "55043", "55135", "55021", "55111", "55017", "55097", "55141", "55071", "55055", "55109", "55089", "55027", "55035", "55039", "55127", "55063", "55117", "55131", "55073", "55105", "55059", "55139", "55087", "55101", "55009", "55133", "55025", "55079"]
+      period_start_date: 2020-05-14
+      period_end_date: 2020-06-12
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.3
+        a: 0
+        b: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .05
+        a: -1
+        b: 1
+    WISCONSIN_open_p2_partial:
+      template: ReduceR0
+      affected_geoids: ["55078", "55037", "55051", "55091", "55041", "55011", "55099", "55107", "55007", "55077", "55013", "55129", "55003", "55113", "55023", "55065", "55103", "55047", "55067", "55053", "55061", "55119", "55001", "55125", "55049", "55137", "55057", "55029", "55069", "55121", "55123", "55019", "55085", "55045", "55083", "55093", "55075", "55115", "55033", "55031", "55095", "55081", "55005", "55015", "55043", "55135", "55021", "55111", "55017", "55097", "55141", "55071", "55055", "55109", "55089", "55027", "55035", "55039", "55127", "55063", "55117", "55131", "55073", "55105", "55059", "55139", "55087", "55101", "55009", "55133", "55025", "55079"]
+      period_start_date: 2020-06-13
+      period_end_date: 2020-07-31
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.3
+        a: 0
+        b: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .05
+        a: -1
+        b: 1
+    WISCONSIN_open_p2b_partial:
+      template: ReduceR0
+      affected_geoids: ["55078", "55037", "55051", "55091", "55041", "55011", "55099", "55107", "55007", "55077", "55013", "55129", "55003", "55113", "55023", "55065", "55103", "55047", "55067", "55053", "55061", "55119", "55001", "55125", "55049", "55137", "55057", "55029", "55069", "55121", "55123", "55019", "55085", "55045", "55083", "55093", "55075", "55115", "55033", "55031", "55095", "55081", "55005", "55015", "55043", "55135", "55021", "55111", "55017", "55097", "55141", "55071", "55055", "55109", "55089", "55027", "55035", "55039", "55127", "55063", "55117", "55131", "55073", "55105", "55059", "55139", "55087", "55101", "55009", "55133", "55025", "55079"]
+      period_start_date: 2020-08-01
+      period_end_date: 2020-10-28
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.3
+        a: 0
+        b: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .05
+        a: -1
+        b: 1
+    WISCONSIN_close1_partial:
+      template: ReduceR0
+      affected_geoids: ["55078", "55037", "55051", "55091", "55041", "55011", "55099", "55107", "55007", "55077", "55013", "55129", "55003", "55113", "55023", "55065", "55103", "55047", "55067", "55053", "55061", "55119", "55001", "55125", "55049", "55137", "55057", "55029", "55069", "55121", "55123", "55019", "55085", "55045", "55083", "55093", "55075", "55115", "55033", "55031", "55095", "55081", "55005", "55015", "55043", "55135", "55021", "55111", "55017", "55097", "55141", "55071", "55055", "55109", "55089", "55027", "55035", "55039", "55127", "55063", "55117", "55131", "55073", "55105", "55059", "55139", "55087", "55101", "55009", "55133", "55025", "55079"]
+      period_start_date: 2020-10-29
+      period_end_date: 2020-12-31
+      value:
+        distribution: truncnorm
+        mean: 0.6
+        sd: 0.3
+        a: 0
+        b: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .05
+        a: -1
+        b: 1
+    state_scenarios:
+      template: Stacked
+      scenarios: ["WISCONSIN_lockdown_partial", "WISCONSIN_open_p1_partial", "WISCONSIN_open_p2_partial", "WISCONSIN_open_p2b_partial", "WISCONSIN_close1_partial"]
+    months:
+      template: Stacked
+      scenarios: ["seas_jan", "seas_feb", "seas_mar", "seas_may", "seas_jun", "seas_jul", "seas_aug", "seas_sep", "seas_oct", "seas_nov", "seas_dec"]
+    inference:
+      template: Stacked
+      scenarios: ["local_variance", "state_scenarios", "months"]
+    
+outcomes:
+  method: delayframe
+  param_from_file: TRUE
+  param_place_file: "usa-geoid-params-output.parquet"
+  scenarios:
+    - low
+  settings:
+    low:
+      incidH:
+        source: incidI
+        probability:
+          value:
+            distribution: fixed
+            value: .0175
+        delay:
+          value:
+            distribution: fixed
+            value: 7
+        duration:
+          value:
+            distribution: fixed
+            value: 7
+          name: hosp_curr
+      incidD:
+        source: incidI
+        probability:
+          value:
+            distribution: fixed
+            value: .0025
+        delay:
+          value:
+            distribution: fixed
+            value: 20
+      incidICU:
+        source: incidH
+        probability: 
+          value:
+            distribution: fixed
+            value: 0.167
+        delay:
+          value:
+            distribution: fixed
+            value: 3
+        duration:
+          value:
+            distribution: fixed
+            value: 8
+          name: icu_curr
+      incidVent:
+        source: incidICU
+        probability: 
+          value:
+            distribution: fixed
+            value: 0.463
+        delay:
+          value:
+            distribution: fixed
+            value: 1
+        duration:
+          value:
+            distribution: fixed
+            value: 7
+          name: vent_curr
+      incidC:
+        source: incidI
+        probability:
+          value:
+            distribution: truncnorm
+            mean: .1
+            sd: .1
+            a: 0
+            b: 1
+          perturbation:
+            distribution: truncnorm
+            mean: 0
+            sd: .05
+            a: -1
+            b: 1
+        delay:
+          value:
+            distribution: fixed
+            value: 7
+
+filtering:
+  simulations_per_slot: 250
+  do_filtering: TRUE
+  data_path: data/wi_data.csv
+  likelihood_directory: importation/likelihood/
+  statistics:
+    sum_deaths:
+      name: sum_deaths
+      aggregator: sum
+      period: "1 weeks"
+      sim_var: incidD
+      data_var: death_incid
+      remove_na: FALSE
+      add_one: TRUE
+      likelihood:
+        dist: pois
+    sum_confirmed:
+      name: sum_confirmed
+      aggregator: sum
+      period: "1 weeks"
+      sim_var: incidC
+      data_var: confirmed_incid
+      remove_na: FALSE
+      add_one: TRUE
+      likelihood:
+        dist: pois
+  hierarchical_stats_geo:
+    local_var_hierarchy:
+      name: local_variance
+      module: seir
+      geo_group_col: USPS
+      transform: none
+    local_conf:
+      name: probability_incidI_incidC
+      module: hospitalization
+      geo_group_col: USPS
+      transform: logit
+  priors:
+    local_var_prior:
+      name: local_variance
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0
+        - 1
+    seas_jan_prior:
+      name: seas_jan
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.2
+        - 1
+    seas_feb_prior:
+      name: seas_feb
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.133
+        - 1
+    seas_mar_prior:
+      name: seas_mar
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.067
+        - 1
+    seas_may_prior:
+      name: seas_may
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.067
+        - 1
+    seas_jun_prior:
+      name: seas_jun
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.133
+        - 1
+    seas_jul_prior:
+      name: seas_jul
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.2
+        - 1
+    seas_aug_prior:
+      name: seas_aug
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.133
+        - 1
+    seas_sep_prior:
+      name: seas_sep
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.067
+        - 1
+    seas_oct_prior:
+      name: seas_oct
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0
+        - 1
+    seas_nov_prior:
+      name: seas_nov
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.067
+        - 1
+  
