@@ -9,9 +9,9 @@ spatial_setup:
   base_path: data
   modeled_states: 
    - SD
-  setup_name: usa_inference_territories
-  geodata: geodata_territories_2019.csv
-  mobility: mobility_territories_2011-2015.csv
+  setup_name: usa_inference_sd
+  geodata: geodata_sd_2019.csv
+  mobility: mobility_sd_2011-2015.csv
   popnodes: pop2019est
   nodenames: geoid
   include_in_report: include_in_report
@@ -20,7 +20,7 @@ seeding:
   method: FolderDraw
   seeding_file_type: seed
   folder_path: importation/minimal/
-  lambda_file: data/minimal/seeding_territories.csv
+  lambda_file: data/minimal/seeding_sd.csv
   perturbation_sd: 3
 
 seir:
