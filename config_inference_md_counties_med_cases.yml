@@ -1,0 +1,1715 @@
+name: Maryland
+start_date: 2020-01-01
+end_date: 2021-02-28
+nsimulations: 300
+dt: 0.25
+report_location_name: Maryland
+
+spatial_setup:  
+  census_year: 2010
+  base_path: data
+  modeled_states:
+    - VA
+    - MD
+    - DC
+    - DE
+    - PA
+    - NJ
+  setup_name: east-coast
+  geodata: geodata.csv
+  mobility: mobility.csv
+  popnodes: pop2010
+  nodenames: geoid
+  include_in_report: include_in_report 
+  
+seeding:
+  method: FolderDraw
+  seeding_file_type: seed
+  lambda_file: data/east-coast/seeding_firstcase_usafacts.csv
+  folder_path: importation/minimal/
+  perturbation_sd: 3
+
+seir:
+  parameters:
+    alpha: 0.99
+    sigma: 1 / 5.2
+    gamma:
+      distribution: uniform
+      low: 1 / 6
+      high: 1 / 2.6
+    R0s:
+      distribution: uniform
+      low: 2
+      high: 3
+
+interventions:
+  scenarios:
+    - inference_case
+  settings:
+    local_variance:
+      template: ReduceR0
+      value:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_jan:
+      template: ReduceR0
+      period_start_date: 2020-01-01
+      period_end_date: 2020-01-31
+      value:
+        distribution: truncnorm
+        mean: -0.2
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_feb:
+      template: ReduceR0
+      period_start_date: 2020-02-01
+      period_end_date: 2020-02-29
+      value:
+        distribution: truncnorm
+        mean: -0.133
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_mar:
+      template: ReduceR0
+      period_start_date: 2020-03-01
+      period_end_date: 2020-03-31
+      value:
+        distribution: truncnorm
+        mean: -0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_may:
+      template: ReduceR0
+      period_start_date: 2020-05-01
+      period_end_date: 2020-05-31
+      value:
+        distribution: truncnorm
+        mean: 0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_jun:
+      template: ReduceR0
+      period_start_date: 2020-06-01
+      period_end_date: 2020-06-30
+      value:
+        distribution: truncnorm
+        mean: 0.133
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_jul:
+      template: ReduceR0
+      period_start_date: 2020-07-01
+      period_end_date: 2020-07-31
+      value:
+        distribution: truncnorm
+        mean: 0.2
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_aug:
+      template: ReduceR0
+      period_start_date: 2020-08-01
+      period_end_date: 2020-08-31
+      value:
+        distribution: truncnorm
+        mean: 0.133
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_sep:
+      template: ReduceR0
+      period_start_date: 2020-09-01
+      period_end_date: 2020-09-30
+      value:
+        distribution: truncnorm
+        mean: 0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_oct:
+      template: ReduceR0
+      period_start_date: 2020-10-01
+      period_end_date: 2020-10-31
+      value:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_nov:
+      template: ReduceR0
+      period_start_date: 2020-11-01
+      period_end_date: 2020-11-30
+      value:
+        distribution: truncnorm
+        mean: -0.067
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_dec:
+      template: ReduceR0
+      period_start_date: 2020-12-01
+      period_end_date: 2020-12-31
+      value:
+        distribution: truncnorm
+        mean: -0.133
+        sd: .1
+        a: -1
+        b: 1
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    seas_jan2:
+      template: ReduceR0
+      period_start_date: 2021-01-01
+      period_end_date: 2021-01-31
+      value:
+        distribution: truncnorm
+        mean: -0.2
+        sd: .1
+        a: -1
+        b: 1
+    seas_feb2:
+      template: ReduceR0
+      period_start_date: 2021-02-01
+      period_end_date: 2021-02-28
+      value:
+        distribution: truncnorm
+        mean: -0.133
+        sd: .1
+        a: -1
+        b: 1
+    ModerateSD_MD:
+      template: ReduceR0
+      period_start_date: 2020-03-13
+      period_end_date: 2020-03-29
+      affected_geoids: ["24001", "24003", "24005", "24009", "24011", "24013", "24015", "24017", "24019", "24021", "24023", "24025",  "24027", "24029", "24031", "24033", "24035", "24039", "24037", "24041", "24043", "24045", "24047", "24510"]
+      value:
+        distribution: uniform
+        low: 0.0
+        high: 0.6
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    ModerateSD_DC:
+      template: ReduceR0
+      period_start_date: 2020-03-13
+      period_end_date: 2020-03-29
+      affected_geoids: ["11001"]
+      value:
+        distribution: uniform
+        low: 0.0
+        high: 0.6
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    ModerateSD_VA:
+      template: ReduceR0
+      period_start_date: 2020-03-12
+      period_end_date: 2020-03-30
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51013", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51059", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51107", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51153", "51155", "51157", "51159", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51179", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51510", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51600", "51610", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51683", "51685", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0.0
+        high: 0.6
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    ModerateSD_DE:
+      template: ReduceR0
+      period_start_date: 2020-03-12
+      period_end_date: 2020-03-23
+      affected_geoids: ["10001", "10003", "10005"]
+      value:
+        distribution: uniform
+        low: 0.0
+        high: 0.6
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    ModerateSD_NJ:
+      template: ReduceR0
+      period_start_date: 2020-03-12
+      period_end_date: 2020-03-20
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0.0
+        high: 0.6
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    ModerateSD_PA:
+      template: ReduceR0
+      period_start_date: 2020-03-12
+      period_end_date: 2020-03-30
+      affected_geoids: ["42001", "42003", "42005", "42007", "42009", "42011", "42013", "42015", "42017", "42019", "42021", "42023", "42025", "42027", "42029", "42031", "42033", "42035", "42037", "42039", "42041", "42043", "42045", "42047", "42049", "42051", "42053", "42055", "42057", "42059", "42061", "42063", "42065", "42067", "42069", "42071", "42073", "42075", "42077", "42079", "42081", "42083", "42085", "42087", "42089", "42091", "42093", "42095", "42097", "42099", "42101", "42103", "42105", "42107", "42109", "42111", "42113", "42115", "42117", "42119", "42121", "42123", "42125", "42127", "42129", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0.0
+        high: 0.6
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    ModerateSD:
+      template: Stacked
+      scenarios: ["ModerateSD_MD", "ModerateSD_VA", "ModerateSD_DC", "ModerateSD_DE", "ModerateSD_NJ", "ModerateSD_PA"]
+    StayAtHome_MD_Group1_Group2:
+      template: ReduceR0
+      period_start_date: 2020-03-30
+      period_end_date: 2020-05-14
+      affected_geoids: ["24001", "24009", "24011", "24013", "24015", "24019", "24023", "24025", "24029", "24035", "24039", "24037", "24041", "24043", "24045", "24047", "24003", "24005", "24021", "24027"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_MD_Group3:
+      template: ReduceR0
+      period_start_date: 2020-03-30
+      period_end_date: 2020-05-29
+      affected_geoids: ["24510", "24017", "24031", "24033"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_MD:
+      template: Stacked
+      scenarios: ["StayAtHome_MD_Group1_Group2", "StayAtHome_MD_Group3"]
+    StayAtHome_DC:
+      template: ReduceR0
+      period_start_date: 2020-03-30
+      period_end_date: 2020-05-28
+      affected_geoids: ["11001"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_VA_Group1:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-05-14
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51155", "51157", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_VA_Group2:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-05-29
+      affected_geoids: ["51013", "51059", "51107", "51153", "51179", "51159", "51510", "51600", "51610", "51683", "51685"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_DE:
+      template: ReduceR0
+      period_start_date: 2020-03-24
+      period_end_date: 2020-05-30
+      affected_geoids: ["10001", "10003", "10005"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_NJ:
+      template: ReduceR0
+      period_start_date: 2020-03-21
+      period_end_date: 2020-05-01
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_PA_Group1:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-05-07
+      affected_geoids: ["42015", "42023", "42027", "42031", "42033", "42039", "42047", "42053", "42065", "42073", "42083", "42093", "42105", "42109", "42113", "42117", "42121", "42123"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_PA_Group2:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-05-14
+      affected_geoids: ["42003", "42005", "42009", "42013", "42019", "42021", "42035", "42051", "42057", "42059", "42063", "42081", "42085", "42111", "42125", "42129"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_PA_Group3:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-05-21
+      affected_geoids: ["42001", "42007", "42025", "42037", "42041", "42067", "42087", "42097", "42119", "42127", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_PA_Group4:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-05-28
+      affected_geoids: ["42043", "42055", "42061", "42079", "42089", "42099", "42103", "42107"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_PA_Group5:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-06-04
+      affected_geoids: ["42011", "42017", "42029", "42045", "42049", "42069", "42071", "42077", "42091", "42095", "42101", "42115"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome_PA_Group6:
+      template: ReduceR0
+      period_start_date: 2020-03-31
+      period_end_date: 2020-05-28
+      affected_geoids: ["42075"]
+      value:
+        distribution: uniform
+        low: 0.3
+        high: 0.99
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    StayAtHome:
+      template: Stacked
+      scenarios: ["StayAtHome_MD", "StayAtHome_DC", "StayAtHome_VA_Group1", "StayAtHome_VA_Group2", "StayAtHome_DE", "StayAtHome_NJ", "StayAtHome_PA_Group1", "StayAtHome_PA_Group2", "StayAtHome_PA_Group3", "StayAtHome_PA_Group4", "StayAtHome_PA_Group5", "StayAtHome_PA_Group6"]
+    Phase1_MD_Group1:
+      template: ReduceR0
+      period_start_date: 2020-05-15
+      period_end_date: 2020-06-04
+      affected_geoids: ["24001", "24009", "24011", "24013", "24015", "24019", "24023", "24025", "24029", "24035", "24039", "24037", "24041", "24043", "24045", "24047"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    PartialPhase1_MD_Group2:
+      template: ReduceR0
+      period_start_date: 2020-05-15
+      period_end_date: 2020-05-28
+      affected_geoids: ["24003", "24005", "24021", "24027"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_MD_Group2:
+      template: ReduceR0
+      period_start_date: 2020-05-29
+      period_end_date: 2020-06-04
+      affected_geoids: ["24003", "24005", "24021", "24027"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_MD_Charles:
+      template: ReduceR0
+      period_start_date: 2020-05-30
+      period_end_date: 2020-06-04
+      affected_geoids: ["24017"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    PartialPhase1_Baltimore:
+      template: ReduceR0
+      period_start_date: 2020-05-30
+      period_end_date: 2020-06-07
+      affected_geoids: ["24510"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_MD_Baltimore:
+      template: ReduceR0
+      period_start_date: 2020-06-08
+      period_end_date: 2020-06-18
+      affected_geoids: ["24510"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_MD_Montgomery:
+      template: ReduceR0
+      period_start_date: 2020-05-30
+      period_end_date: 2020-06-18
+      affected_geoids: ["24031"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_MD_PrinceGeorge:
+      template: ReduceR0
+      period_start_date: 2020-05-30
+      period_end_date: 2020-06-14
+      affected_geoids: ["24033"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_MD:
+      template: Stacked
+      scenarios: ["Phase1_MD_Group1", "Phase1_MD_Group2", "Phase1_MD_Charles", "Phase1_MD_Baltimore", "Phase1_MD_Montgomery", "Phase1_MD_PrinceGeorge"]
+    PartialPhase1_MD:
+      template: Stacked
+      scenarios: ["PartialPhase1_MD_Group2", "PartialPhase1_Baltimore"]
+    Phase1_DC:
+      template: ReduceR0
+      period_start_date: 2020-05-29
+      period_end_date: 2020-06-21
+      affected_geoids: ["11001"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_VA_Group1:
+      template: ReduceR0
+      period_start_date: 2020-05-15
+      period_end_date: 2020-06-04
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51155", "51157", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_VA_Group2:
+      template: ReduceR0
+      period_start_date: 2020-05-30
+      period_end_date: 2020-06-11
+      affected_geoids: ["51013", "51059", "51107", "51153", "51179", "51159", "51510", "51600", "51610", "51683", "51685"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_DE:
+      template: ReduceR0
+      period_start_date: 2020-06-01
+      period_end_date: 2020-06-14
+      affected_geoids: ["10001", "10003", "10005"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    PartialPhase1_NJ:
+      template: ReduceR0
+      period_start_date: 2020-05-02
+      period_end_date: 2020-05-21
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_NJ:
+      template: ReduceR0
+      period_start_date: 2020-05-22
+      period_end_date: 2020-06-14
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_PA_Group1:
+      template: ReduceR0
+      period_start_date: 2020-05-08
+      period_end_date: 2020-05-28
+      affected_geoids: ["42015", "42023", "42027", "42031", "42033", "42039", "42047", "42053", "42065", "42073", "42083", "42093", "42105", "42109", "42113", "42117", "42121", "42123"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_PA_Group2:
+      template: ReduceR0
+      period_start_date: 2020-05-15
+      period_end_date: 2020-06-04
+      affected_geoids: ["42003", "42005", "42009", "42013", "42019", "42021", "42035", "42051", "42057", "42059", "42063", "42081", "42085", "42111", "42125", "42129"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_PA_Group3:
+      template: ReduceR0
+      period_start_date: 2020-05-22
+      period_end_date: 2020-06-11
+      affected_geoids: ["42001", "42007", "42025", "42037", "42041", "42067", "42087", "42097", "42119", "42127", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_PA_Group4:
+      template: ReduceR0
+      period_start_date: 2020-05-29
+      period_end_date: 2020-06-18
+      affected_geoids: ["42043", "42055", "42061", "42079", "42089", "42099", "42103", "42107"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_PA_Group5:
+      template: ReduceR0
+      period_start_date: 2020-06-05
+      period_end_date: 2020-06-25
+      affected_geoids: ["42011", "42017", "42029", "42045", "42049", "42069", "42071", "42077", "42091", "42095", "42101", "42115"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1_PA_Group6:
+      template: ReduceR0
+      period_start_date: 2020-05-29
+      period_end_date: 2020-07-02
+      affected_geoids: ["42075"]
+      value:
+        distribution: uniform
+        low: 0.2
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1:
+      template: Stacked
+      scenarios: ["Phase1_MD", "Phase1_DC", "Phase1_VA_Group1", "Phase1_VA_Group2", "Phase1_DE", "Phase1_NJ", "Phase1_PA_Group1", "Phase1_PA_Group2", "Phase1_PA_Group3", "Phase1_PA_Group4", "Phase1_PA_Group5", "Phase1_PA_Group6"]
+    PartialPhase1:
+      template: Stacked
+      scenarios: ["PartialPhase1_MD", "PartialPhase1_NJ"]
+    PartialPhase2_MD_PrinceGeorge:
+      template: ReduceR0
+      period_start_date: 2020-06-15
+      period_end_date: 2020-06-28
+      affected_geoids: ["24033"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_MD_PrinceGeorge:
+      template: ReduceR0
+      period_start_date: 2020-06-29
+      period_end_date: 2020-09-15
+      affected_geoids: ["24033"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_expanded_MD_PrinceGeorge:
+      template: ReduceR0
+      period_start_date: 2020-09-16
+      period_end_date: 2020-11-10
+      affected_geoids: ["24033"]
+      value:
+        distribution: uniform
+        low: -0.9
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_MD_Montgomery:
+      template: ReduceR0
+      period_start_date: 2020-06-19
+      period_end_date: 2020-11-10
+      affected_geoids: ["24031"]
+      value:
+        distribution: uniform 
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_MD_Baltimore:
+      template: ReduceR0
+      period_start_date: 2020-06-19
+      period_end_date: 2020-09-07
+      affected_geoids: ["24510"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_expanded_MD_Baltimore:
+      template: ReduceR0
+      period_start_date: 2020-09-08
+      period_end_date: 2020-11-10
+      affected_geoids: ["24510"]
+      value:
+        distribution: uniform
+        low: -0.9
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    PartialPhase2_MD_Charles_AA:
+      template: ReduceR0
+      period_start_date: 2020-06-05
+      period_end_date: 2020-06-18
+      affected_geoids: ["24003", "24017"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_MD_Charles:
+      template: ReduceR0
+      period_start_date: 2020-06-19
+      period_end_date: 2020-09-03
+      affected_geoids: ["24017"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_MD_AA:
+      template: ReduceR0
+      period_start_date: 2020-06-19
+      period_end_date: 2020-11-10
+      affected_geoids: ["24003"]
+      value:
+        distribution: uniform
+        low: -0.9
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_MD_others:
+      template: ReduceR0
+      period_start_date: 2020-06-05
+      period_end_date: 2020-09-03
+      affected_geoids: ["24001", "24005", "24009", "24011", "24013", "24015", "24019", "24021", "24023", "24025",  "24027", "24029", "24035", "24039", "24037", "24041", "24043", "24045", "24047"]
+      value:
+        distribution: uniform
+        low: -0.9
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_MD:
+      template: Stacked
+      scenarios: ["Phase2_MD_others", "Phase2_MD_Montgomery", "PartialPhase2_MD_PrinceGeorge", "Phase2_MD_PrinceGeorge",  "Phase2_expanded_MD_PrinceGeorge", "PartialPhase2_MD_Charles_AA", "Phase2_MD_Charles", "Phase2_MD_AA", "Phase2_MD_Baltimore", "Phase2_expanded_MD_Baltimore"]
+    Phase2_DC:
+      template: ReduceR0
+      period_start_date: 2020-06-22
+      period_end_date: 2020-11-24
+      affected_geoids: ["11001"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_VA_Group1:
+      template: ReduceR0
+      period_start_date: 2020-06-05
+      period_end_date: 2020-06-30
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51155", "51157", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_VA_Group2:
+      template: ReduceR0
+      period_start_date: 2020-06-12
+      period_end_date: 2020-06-30
+      affected_geoids: ["51013", "51059", "51107", "51153", "51179", "51159", "51510", "51600", "51610", "51683", "51685"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_DE:
+      template: ReduceR0
+      period_start_date: 2020-06-15
+      period_end_date: 2020-11-22
+      affected_geoids: ["10001", "10003", "10005"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_NJ:
+      template: ReduceR0
+      period_start_date: 2020-06-15
+      period_end_date: 2020-09-03
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_PA_Group1:
+      template: ReduceR0
+      period_start_date: 2020-05-29
+      period_end_date: 2020-07-15
+      affected_geoids: ["42015", "42023", "42027", "42031", "42033", "42039", "42047", "42053", "42065", "42073", "42083", "42093", "42105", "42109", "42113", "42117", "42121", "42123"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_PA_Group2:
+      template: ReduceR0
+      period_start_date: 2020-06-05
+      period_end_date: 2020-07-15
+      affected_geoids: ["42003", "42005", "42009", "42013", "42019", "42021", "42035", "42051", "42057", "42059", "42063", "42081", "42085", "42111", "42125", "42129"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_PA_Group3:
+      template: ReduceR0
+      period_start_date: 2020-06-12
+      period_end_date: 2020-07-15
+      affected_geoids: ["42001", "42007", "42025", "42037", "42041", "42067", "42087", "42097", "42119", "42127", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_PA_Group4:
+      template: ReduceR0
+      period_start_date: 2020-06-19
+      period_end_date: 2020-07-15
+      affected_geoids: ["42043", "42055", "42061", "42079", "42089", "42099", "42103", "42107"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_PA_Group5:
+      template: ReduceR0
+      period_start_date: 2020-06-26
+      period_end_date: 2020-07-15
+      affected_geoids: ["42011", "42017", "42029", "42045", "42049", "42069", "42071", "42077", "42091", "42095", "42101", "42115"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2_PA_Group6:
+      template: ReduceR0
+      period_start_date: 2020-07-03
+      period_end_date: 2020-07-15
+      affected_geoids: ["42075"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2b_PA:
+      template: ReduceR0
+      period_start_date: 2020-07-16
+      period_end_date: 2020-09-13
+      affected_geoids: ["42001", "42003", "42005", "42007", "42009", "42011", "42013", "42015", "42017", "42019", "42021", "42023", "42025", "42027", "42029", "42031", "42033", "42035", "42037", "42039", "42041", "42043", "42045", "42047", "42049", "42051", "42053", "42055", "42057", "42059", "42061", "42063", "42065", "42067", "42069", "42071", "42073", "42075", "42077", "42079", "42081", "42083", "42085", "42087", "42089", "42091", "42093", "42095", "42097", "42099", "42101", "42103", "42105", "42107", "42109", "42111", "42113", "42115", "42117", "42119", "42121", "42123", "42125", "42127", "42129", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2:
+      template: Stacked
+      scenarios: ["Phase2_MD", "Phase2_DC", "Phase2_VA_Group1", "Phase2_VA_Group2", "Phase2_DE", "Phase2_NJ", "Phase2_PA_Group1", "Phase2_PA_Group2", "Phase2_PA_Group3", "Phase2_PA_Group4", "Phase2_PA_Group5", "Phase2_PA_Group6", "Phase2b_PA"]
+    Phase3_MD:
+      template: ReduceR0
+      period_start_date: 2020-09-04
+      period_end_date: 2020-11-10
+      affected_geoids: ["24001", "24005", "24009", "24011", "24013", "24015", "24017", "24019", "24021", "24023", "24025",  "24027", "24029", "24035", "24039", "24037", "24041", "24043", "24045", "24047"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3_VA:
+      template: ReduceR0
+      period_start_date: 2020-07-01
+      period_end_date: 2020-07-30
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51013", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51059", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51107", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51153", "51155", "51157", "51159", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51179", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51510", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51600", "51610", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51683", "51685", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2b_VA:
+      template: ReduceR0
+      period_start_date: 2020-07-31
+      period_end_date: 2020-09-09
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51013", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51059", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51107", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51153", "51155", "51157", "51159", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51179", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51510", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51600", "51610", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51683", "51685", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3b_VA:
+      template: ReduceR0
+      period_start_date: 2020-09-10
+      period_end_date: 2020-11-14
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51013", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51059", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51107", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51153", "51155", "51157", "51159", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51179", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51510", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51600", "51610", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51683", "51685", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3_NJ:
+      template: ReduceR0
+      period_start_date: 2020-09-04
+      period_end_date: 2020-11-11
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3_PA:
+      template: ReduceR0
+      period_start_date: 2020-09-14
+      period_end_date: 2020-10-05
+      affected_geoids: ["42001", "42003", "42005", "42007", "42009", "42011", "42013", "42015", "42017", "42019", "42021", "42023", "42025", "42027", "42029", "42031", "42033", "42035", "42037", "42039", "42041", "42043", "42045", "42047", "42049", "42051", "42053", "42055", "42057", "42059", "42061", "42063", "42065", "42067", "42069", "42071", "42073", "42075", "42077", "42079", "42081", "42083", "42085", "42087", "42089", "42091", "42093", "42095", "42097", "42099", "42101", "42103", "42105", "42107", "42109", "42111", "42113", "42115", "42117", "42119", "42121", "42123", "42125", "42127", "42129", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3b_PA:
+      template: ReduceR0
+      period_start_date: 2020-10-06
+      period_end_date: 2020-12-11
+      affected_geoids: ["42001", "42003", "42005", "42007", "42009", "42011", "42013", "42015", "42017", "42019", "42021", "42023", "42025", "42027", "42029", "42031", "42033", "42035", "42037", "42039", "42041", "42043", "42045", "42047", "42049", "42051", "42053", "42055", "42057", "42059", "42061", "42063", "42065", "42067", "42069", "42071", "42073", "42075", "42077", "42079", "42081", "42083", "42085", "42087", "42089", "42091", "42093", "42095", "42097", "42099", "42101", "42103", "42105", "42107", "42109", "42111", "42113", "42115", "42117", "42119", "42121", "42123", "42125", "42127", "42129", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3:
+      template: Stacked
+      scenarios: ["Phase3_MD", "Phase3_VA", "Phase2b_VA", "Phase3b_VA", "Phase3_NJ", "Phase3_PA", "Phase3b_PA"]
+    Phase2b_MD:
+      template: ReduceR0
+      period_start_date: 2020-11-10
+      period_end_date: 2020-12-16
+      affected_geoids: ["24001", "24003", "24005", "24009", "24011", "24013", "24015", "24017", "24019", "24021", "24023", "24025",  "24027", "24029", "24031", "24033", "24035", "24039", "24037", "24041", "24043", "24045", "24047", "24510"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2c_MD:
+      template: ReduceR0
+      period_start_date: 2020-12-17
+      period_end_date: 2021-02-28
+      affected_geoids: ["24001", "24003", "24005", "24009", "24011", "24013", "24015", "24017", "24019", "24021", "24023", "24025",  "24027", "24029", "24031", "24033", "24035", "24039", "24037", "24041", "24043", "24045", "24047", "24510"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2b_DC:
+      template: ReduceR0
+      period_start_date: 2020-11-25
+      period_end_date: 2020-12-13
+      affected_geoids: ["11001"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2c_DC:
+      template: ReduceR0
+      period_start_date: 2020-12-14
+      period_end_date: 2021-02-28
+      affected_geoids: ["11001"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3c_VA:
+      template: ReduceR0
+      period_start_date: 2020-11-15
+      period_end_date: 2020-12-13
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51013", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51059", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51107", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51153", "51155", "51157", "51159", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51179", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51510", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51600", "51610", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51683", "51685", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2c_VA:
+      template: ReduceR0
+      period_start_date: 2020-12-14
+      period_end_date: 2021-02-28
+      affected_geoids: ["51001", "51003", "51005", "51007", "51009", "51011", "51013", "51015", "51017", "51019", "51021", "51023", "51025", "51027", "51029", "51031", "51033", "51035", "51036", "51037", "51041", "51043", "51045", "51047", "51049", "51051", "51053", "51057", "51059", "51061", "51063", "51065", "51067", "51069", "51071", "51073", "51075", "51077", "51079", "51081", "51083", "51085", "51087", "51089", "51091", "51093", "51095", "51097", "51099", "51101", "51103", "51105", "51107", "51109", "51111", "51113", "51115", "51117", "51119", "51121", "51125", "51127", "51131", "51133", "51135", "51137", "51139", "51141", "51143", "51145", "51147", "51149", "51153", "51155", "51157", "51159", "51161", "51163", "51165", "51167", "51169", "51171", "51173", "51175", "51177", "51179", "51181", "51183", "51185", "51187", "51191", "51193", "51195", "51197", "51199", "51510", "51515", "51520", "51530", "51540", "51550", "51570", "51580", "51590", "51595", "51600", "51610", "51620", "51630", "51640", "51650", "51660", "51670", "51678", "51680", "51683", "51685", "51690", "51700", "51710", "51720", "51730", "51735", "51740", "51750", "51760", "51770", "51775", "51790", "51800", "51810", "51820", "51830", "51840"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1b_DE:
+      template: ReduceR0
+      period_start_date: 2020-11-23
+      period_end_date: 2020-12-13
+      affected_geoids: ["10001", "10003", "10005"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1c_DE:
+      template: ReduceR0
+      period_start_date: 2020-12-14
+      period_end_date: 2021-02-28
+      affected_geoids: ["10001", "10003", "10005"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase3b_NJ:
+      template: ReduceR0
+      period_start_date: 2020-11-12
+      period_end_date: 2020-12-06
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase2b_NJ:
+      template: ReduceR0
+      period_start_date: 2020-12-07
+      period_end_date: 2021-02-28
+      affected_geoids: ["34001", "34003", "34005", "34007", "34009", "34011", "34013", "34015", "34017", "34019", "34021", "34023", "34025", "34027", "34029", "34031", "34033", "34035", "34037", "34039", "34041"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Phase1b_PA:
+      template: ReduceR0
+      period_start_date: 2020-12-12
+      period_end_date: 2021-02-28
+      affected_geoids: ["42001", "42003", "42005", "42007", "42009", "42011", "42013", "42015", "42017", "42019", "42021", "42023", "42025", "42027", "42029", "42031", "42033", "42035", "42037", "42039", "42041", "42043", "42045", "42047", "42049", "42051", "42053", "42055", "42057", "42059", "42061", "42063", "42065", "42067", "42069", "42071", "42073", "42075", "42077", "42079", "42081", "42083", "42085", "42087", "42089", "42091", "42093", "42095", "42097", "42099", "42101", "42103", "42105", "42107", "42109", "42111", "42113", "42115", "42117", "42119", "42121", "42123", "42125", "42127", "42129", "42131", "42133"]
+      value:
+        distribution: uniform
+        low: 0
+        high: 0.9
+      perturbation:
+        distribution: truncnorm
+        mean: 0
+        sd: .1
+        a: -1
+        b: 1
+    Rollbacks:
+      template: Stacked
+      scenarios: ["Phase2b_MD", "Phase2c_MD", "Phase2b_DC", "Phase2c_DC", "Phase3c_VA", "Phase2c_VA", "Phase1b_DE", "Phase1c_DE", "Phase3b_NJ", "Phase2b_NJ", "Phase1b_PA"]
+    months:
+      template: Stacked
+      scenarios: ["seas_jan", "seas_feb", "seas_mar", "seas_may", "seas_jun", "seas_jul", "seas_aug", "seas_sep", "seas_oct", "seas_nov", "seas_dec", "seas_jan2", "seas_feb2"]
+    inference_case:
+      template: Stacked
+      scenarios: ["local_variance", "months", "ModerateSD", "StayAtHome", "PartialPhase1", "Phase1", "Phase2", "Phase3", "Rollbacks"]
+
+outcomes: 
+  method: delayframe
+  param_from_file: TRUE
+  param_place_file: "hospitalization_inference_relative.hpar.parquet"
+  scenarios:
+    - med
+  settings:
+    med:
+      incidH:
+        source: incidI
+        probability:
+          value: 
+            distribution: fixed
+            value: .02
+        delay:
+          value:
+            distribution: fixed
+            value: 7
+        duration:
+          value:
+            distribution: fixed
+            value: 6
+          name: hosp_curr
+      incidD:
+        source: incidI
+        probability:
+          value:
+            distribution: fixed
+            value: .005
+        delay:
+          value:
+            distribution: fixed
+            value: 20
+      incidICU:
+        source: incidH
+        probability: 
+          value:
+            distribution: fixed
+            value: 0.167
+        delay:
+          value:
+            distribution: fixed
+            value: 3
+        duration:
+          value:
+            distribution: fixed
+            value: 6
+          name: icu_curr
+      incidVent:
+        source: incidICU
+        probability: 
+          value:
+            distribution: fixed
+            value: 0.463
+        delay:
+          value:
+            distribution: fixed
+            value: 1
+        duration:
+          value:
+            distribution: fixed
+            value: 5
+          name: vent_curr
+      incidC:
+        source: incidI
+        probability:
+          value:
+            distribution: truncnorm
+            mean: .2
+            sd: .1
+            a: 0
+            b: 1
+          perturbation:
+            distribution: truncnorm
+            mean: 0
+            sd: .01
+            a: -1
+            b: 1
+        delay:
+          value:
+            distribution: fixed
+            value: 7
+
+filtering:
+  simulations_per_slot: 350
+  do_filtering: TRUE
+  data_path: data/md_data.csv
+  likelihood_directory: importation/likelihood
+  statistics:
+    sum_deaths:
+      name: sum_deaths
+      aggregator: sum
+      period: "1 weeks"
+      sim_var: incidD
+      data_var: death_incid
+      remove_na: FALSE
+      add_one: FALSE
+      likelihood:
+        dist: sqrtnorm
+        param: [.4]
+    sum_confirmed:
+      name: sum_confirmed
+      aggregator: sum
+      period: "1 weeks"
+      sim_var: incidC
+      data_var: confirmed_incid
+      remove_na: FALSE
+      add_one: TRUE
+      likelihood:
+        dist: pois
+  hierarchical_stats_geo:
+    local_var_hierarchy:
+      name: local_variance
+      module: seir
+      geo_group_col: USPS
+      transform: none
+    local_conf:
+      name: probability_incidI_incidC
+      module: hospitalization
+      geo_group_col: USPS
+      transform: logit
+  priors:
+    local_var_prior:
+      name: local_variance
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0
+        - 1
+    seas_jan_prior:
+      name: seas_jan
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.2
+        - 1
+    seas_feb_prior:
+      name: seas_feb
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.133
+        - 1
+    seas_mar_prior:
+      name: seas_mar
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.067
+        - 1
+    seas_may_prior:
+      name: seas_may
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.067
+        - 1
+    seas_jun_prior:
+      name: seas_jun
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.133
+        - 1
+    seas_jul_prior:
+      name: seas_jul
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.2
+        - 1
+    seas_aug_prior:
+      name: seas_aug
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.133
+        - 1
+    seas_sep_prior:
+      name: seas_sep
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0.067
+        - 1
+    seas_oct_prior:
+      name: seas_oct
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - 0
+        - 1
+    seas_nov_prior:
+      name: seas_nov
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.067
+        - 1
+    seas_dec_prior:
+      name: seas_dec
+      module: seir
+      likelihood:
+        dist: normal
+        param:
+        - -0.133
+        - 1
+    
+report:
+  data_settings:
+    pop_year: 2010
+  plot_settings:
+    plot_intervention: FALSE
+  formatting:
+    scenario_labels_short: ["cases"]
+    scenario_labels:
+    - 'Case-Optimized'
+    scenario_colors: ["#D95F02", "#1B9E77", "#7570B3", "#E7298A"]
+    death_rate_levels: ["high", "med", "low"]
+    death_rate_labels: ["1% IFR", "0.5% IFR", "0.25% IFR"]
+    display_dates: ["2020-08-01", "2020-08-15", "2020-09-01", "2020-10-31"]
