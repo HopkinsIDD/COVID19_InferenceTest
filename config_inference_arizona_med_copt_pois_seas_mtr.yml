@@ -277,14 +277,15 @@ interventions:
     ARIZONA_open_p2_partial:
       template: MultiTimeReduce
       parameter: "R0"
-      affected_geoids: ["04011", "04012", "04009", "04023", "04007", "04001", "04017", "04003", "04005", "04027", "04015", "04025", "04021", "04019", "04013"]
-      periods:
-        - start_date: 2020-05-16
-          end_date: 2020-06-28
-        - start_date: 2020-10-02
-          end_date: 2020-12-02
-        - start_date: 2020-12-03
-          end_date: 2021-02-06
+      groups:
+        - affected_geoids: ["04011", "04012", "04009", "04023", "04007", "04001", "04017", "04003", "04005", "04027", "04015", "04025", "04021", "04019", "04013"]
+        periods:
+          - start_date: 2020-05-16
+            end_date: 2020-06-28
+          - start_date: 2020-10-02
+            end_date: 2020-12-02
+          - start_date: 2020-12-03
+            end_date: 2021-02-06
       value:
         distribution: truncnorm
         mean: 0.6
